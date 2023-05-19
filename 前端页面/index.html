@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- <meta charset="UTF-8" /> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 表单发起请求 -->
+      <button class="btn">发起请求</button>
+      <form action="/api/user/login" method="POST">
+        <input type="text" />
+        <input type="password" />
+        <input type="submit" />
+      </form>
+    </div>
+  </body>
+
+  <script>
+    const btn = document.querySelector(".btn");
+    btn.addEventListener("click", getData);
+    function getData() {
+      // 创建一个新的XMLHttpRequest对象
+      var xhr = new XMLHttpRequest();
+      // 准备要发送的数据
+      var data = {
+        password: "123",
+        username: "zhangsan",
+      };
+      // 配置请求
+      xhr.open("POST", "/api/user/login", true);
+
+      // 设置请求头
+      xhr.setRequestHeader("content-type", "application/json");
+
+      // 设置请求完成时的回调函数
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          console.log(xhr.response);
+        } else {
+          console.error("请求失败，状态码：", xhr.status);
+        }
+      };
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            // 请求成功，处理响应数据
+            var response = JSON.parse(xhr.responseText);
+            console.log(response);
+          } else {
+            // 请求失败，处理错误信息
+            console.error("请求失败：" + xhr.status);
+          }
+        }
+      };
+
+      // 发送)请求
+      xhr.send(JSON.stringify(data));
+    }
+  </script>
+</html>
