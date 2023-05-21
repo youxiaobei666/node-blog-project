@@ -10,7 +10,13 @@ const mysql = require("mysql2");
 const { MYSQL_CONF } = require("../conf/db"); // 导入配置
 
 // 创建与 MySQL 数据库的连接实例
-const connection = mysql.createConnection(MYSQL_CONF);
+const connection = mysql.createConnection({
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "yjc010203.",
+  database: "myblog",
+});
 
 // 建立数据库连接
 connection.connect();
